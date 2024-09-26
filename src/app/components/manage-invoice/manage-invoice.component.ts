@@ -35,7 +35,7 @@ interface ADDITEMSDETAILS {
 
 @Component({
   selector: 'app-manage-invoice',
-  standalone: true,
+  standalone: true, 
   imports: [MatIconModule,MatIconModule,MatDividerModule,MatButtonModule,
     MatGridListModule,MatCardModule,MatInputModule,MatFormFieldModule,
   MatSidenavModule,MatSlideToggleModule,MatMenuModule,MatListModule,
