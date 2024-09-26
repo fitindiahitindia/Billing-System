@@ -1,0 +1,142 @@
+section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+  
+  .grid-container{
+    margin: 2% 7%;
+  }
+  .tile-content-left-top {
+    display: flex;
+    align-items: flex-start; /* Align content to the top */
+    justify-content: flex-start; /* Align content to the left */
+  }
+
+  mat-grid-list{
+    position:static;
+  }
+    
+  .mat-toolbar {
+    background-color: #673ab7; /* Purple color for toolbar */
+  }
+  
+  .main-content {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* margin: 20px; */
+  }
+  
+ 
+  
+  .selected-item {
+    /* margin-top: 20px; */
+    padding: 10px;
+    background-color: #e0f7fa;
+  }
+  
+  .invoice-summary {
+    width: 100%;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .thank-you-message {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+  mat-form-field{
+    margin:3px
+  }
+  mat-card{
+    border-radius: 15px;
+    background-color: #F7F2FA;
+  }
+  @media print {
+    *{border:none}
+    .col_40{width: 0%!important;display: none;}
+    .col_60{width: 100%!important;margin:0 auto;}
+    .customer_detail{ border-top:1px dashed black!important;}
+    .invoice-summary{width: 100%;border:1px solid rgb(75, 75, 75)!important;visibility: visible;}
+    .invoice-summary .business_name{
+      background-color: #673ab7;
+      color: white;
+    }
+    mat-toolbar{display: none;}
+    .cu_d,.cu_ds{margin-top: 10px;}
+}
+
+
+.invoice-summary{line-height: 32px;font-family: 'Times New Roman', Times, serif;border:2px dashed rgb(197, 197, 197);padding: 10px;}
+.shop_name{margin: 20px 0;font-size: 18px;font-weight: bold;font-family: sans-serif;}
+.business_name{font-size: 25px;
+    text-align: center;
+    background-color: #eee;
+    padding: 11px;
+}
+.customer_detail{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.invoice-summary span{
+    font-weight: bold;
+}
+.invoice-summary table{
+    width: 100%;
+}
+.invoice-summary table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding:2px 7px;
+  }
+  .mat-mdc-text-field-wrapper{
+    height: 30px!important;
+  }
+  .slider{
+      margin: 10px;
+    }
+
+    .addItemCard{
+      max-width: 200px;
+      margin-bottom: 8px;
+      background-color: white;
+    }
+

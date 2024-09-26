@@ -1,0 +1,30 @@
+<!-- header -->
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>My App</span>
+    <span class="header-spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon role="img" class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+            aria-hidden="true" data-mat-icon-type="font">arrow_drop_down</mat-icon>
+        Setting
+    </button>
+    <mat-menu #menu="matMenu">
+        <mat-selection-list>
+            <mat-list-item routerLink="./manage-invoice">
+                <mat-icon matListItemIcon>folder</mat-icon>
+                <div matListItemTitle>Manage Invoice</div>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon>settings</mat-icon>
+                <div matListItemTitle>Profile</div>
+            </mat-list-item>
+        </mat-selection-list>
+
+    </mat-menu>
+
+</mat-toolbar>
+
+<!-- end header -->
