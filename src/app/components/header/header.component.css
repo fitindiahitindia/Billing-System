@@ -1,3 +1,17 @@
 .header-spacer {
     flex: 1 1 auto;
   }
+
+  @media print {
+    *{border:none}
+    .col_40{width: 0%!important;display: none;}
+    .col_60{width: 100%!important;margin:0 auto;}
+    .customer_detail{ border-top:1px dashed black!important;}
+    .invoice-summary{width: 100%;border:1px solid rgb(75, 75, 75)!important;visibility: visible;}
+    .invoice-summary .business_name{
+      background-color: #673ab7;
+      color: white;
+    }
+    mat-toolbar{display: none;}
+    .cu_d,.cu_ds{margin-top: 10px;}
+}

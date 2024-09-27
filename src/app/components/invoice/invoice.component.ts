@@ -21,6 +21,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { LocalStoreService } from '../../services/local-store.service';
 interface CUSTOMERDETAILS {
   name: string;
   lname: string;
@@ -65,6 +66,8 @@ interface ADDITEMSDETAILS {
   styleUrl: './invoice.component.css',
 })
 export class InvoiceComponent {
+  
+
   warranty: boolean = false;
   isDiscount:boolean=false;
   invoiceDetails: any[] = [];
@@ -88,7 +91,17 @@ export class InvoiceComponent {
     total:"",
 
   }
- async getCustomerDetails(formValue: CUSTOMERDETAILS[]) {
+  ownerDetails:any={
+    billName: "Mobile Bill Shop",
+    companyName: "Your Business Name",
+    mobile: "1234567890",
+    email: "test@gmail.com",
+    address: "Your Full Address",
+
+  }
+  constructor(private localStore:LocalStoreService){}
+
+  async getCustomerDetails(formValue: CUSTOMERDETAILS[]) {
     let arrValues = Object.values(formValue)
     this.customerDetails.name = arrValues[0];
     this.customerDetails.lname = arrValues[1];
@@ -97,7 +110,7 @@ export class InvoiceComponent {
     this.customerDetails.date = arrValues[4];
 
     this.customerDetails.invoiceNo =await this.generateInvoice();
-    this.customerDetails.discount = arrValues[11];
+    this.customerDetails.discount = arrValues[12];
     this.customerDetails.total = await this.getTotal();
     console.log(this.customerDetails)
     console.log(Object.keys(arrValues))
@@ -149,8 +162,15 @@ export class InvoiceComponent {
   printInvoice(){
     window.print()
   }
+
+  getBillDetails_local(){
+    let localData = this.localStore.getLocalUserDetail()
+    this.ownerDetails = JSON.parse(`${localData}`)
+  }
+
   ngOnInit(){
-    this.generateInvoice()
+    this. getBillDetails_local();
+    this.generateInvoice();
   }
 }
 

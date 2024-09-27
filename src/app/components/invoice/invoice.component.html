@@ -81,13 +81,13 @@
 
                         <mat-card class="add-item" style="margin-top: 20px;">
                             <mat-card-header>
-                                <mat-card-title>Add to Item</mat-card-title>
+                                <mat-card-title>Add to Product</mat-card-title>
                             </mat-card-header>
                             <mat-divider></mat-divider>
                             <mat-card-content style="padding-top: 20px;">
                                 <mat-form-field appearance="outline">
-                                    <mat-label>Item ID</mat-label>
-                                    <input matInput placeholder="Item ID" name="itemIdName" ngModel
+                                    <mat-label>Product ID</mat-label>
+                                    <input matInput placeholder="Product ID" name="itemIdName" ngModel
                                         [(ngModel)]="addItems.itemIdName">
                                 </mat-form-field>
 
@@ -124,9 +124,9 @@
                                 <!-- ADD BUTTON -->
                                 <mat-card-content style="margin-top: 15px;">
                                     <button mat-stroked-button type="button" color="warn"
-                                        (click)="emptyAddItems('all')">Reset</button>
+                                        (click)="emptyAddItems('all')"><mat-icon>replay</mat-icon>Reset</button>
                                     <button mat-raised-button type="button" color="accent" style="margin-left: 15px;"
-                                        (click)="getAddItemsDetails()"><mat-icon>add</mat-icon>Add Item</button>
+                                        (click)="getAddItemsDetails()"><mat-icon>add</mat-icon>Add Product</button>
                                 </mat-card-content>
                                 <br>
                                 <!-- Selected Item Summary -->
@@ -159,9 +159,9 @@
 
                         <mat-card class="buttons" style="margin-top: 20px;background-color: white;">
                             <mat-card-content style="padding-top: 20px;">
-                                <button mat-stroked-button type="reset" color="warn">Reset</button>
+                                <button mat-stroked-button type="reset" color="warn"><mat-icon>replay</mat-icon>Reset</button>
                                 <button mat-raised-button type="submit" style="margin-left: 15px;" color="primary"
-                                    [disabled]="!customerDetailsForm.valid"><mat-icon>save</mat-icon>Save</button>
+                                    [disabled]="!customerDetailsForm.valid"><mat-icon>insert_drive_file</mat-icon>Generate Bill</button>
                                 <button mat-raised-button type="button" style="margin-left: 15px;" color="warn"
                                     (click)="printInvoice()"
                                     [disabled]="!customerDetailsForm.valid"><mat-icon>print</mat-icon>Print</button>
@@ -172,12 +172,11 @@
 
                 <div class="col_60">
                     <div class="invoice-summary">
-                        <div class="business_name"> Your Title</div>
-                        <div class="shop_name"> Your Shop Name</div>
-                        <div class="address"><span>Address:</span> Your Address</div>
-                        <div class="phone"><span>Phone No.:</span> 123456789</div>
-                        <div class="email"><span>Email Id:</span> Your Email Address</div>
-                        <div class="gstin"><span>GSTIN:</span> null</div>
+                        <div class="business_name"> {{ownerDetails.billName}}</div>
+                        <div class="shop_name"> {{ownerDetails.companyName}}</div>
+                        <div class="address"><span>Address:</span>{{ownerDetails.address}}</div>
+                        <div class="phone"><span>Phone No.:</span> {{ownerDetails.mobile}}</div>
+                        <div class="email"><span>Email Id:</span> {{ownerDetails.email}}</div>
                         <hr />
                         <div class="customer_detail">
                             <div class="cu_d">

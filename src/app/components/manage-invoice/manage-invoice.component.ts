@@ -14,24 +14,16 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LocalStoreService } from '../../services/local-store.service';
 
-interface CUSTOMERDETAILS {
-  name: string;
-  lname: string;
+interface OWNERDETAIL {
+  billName: string;
+  companyName: string;
   mobile: number;
   email: string;
-  date: string;
-  isDiscount:boolean;
-  discount:number;
+  address:string;
 }
-interface ADDITEMSDETAILS {
-  itemIdName: string;
-  itemName: string;
-  itemPrice: number;
-  itemQuantity: number;
-  warranty: boolean;
-  warrantyDate: string;
-}
+
 
 @Component({
   selector: 'app-manage-invoice',
@@ -53,17 +45,30 @@ export class ManageInvoiceComponent {
     address: "Your Full Address",
 
   }
- async getBillDetails(formValue: CUSTOMERDETAILS[]) {
+  // ownerDetail
+  constructor(private localStore:LocalStoreService){}
+
+  getBillDetails(formValue: OWNERDETAIL[]) {
     let arrValues = Object.values(formValue)
     this.customerDetails.billName = arrValues[0];
     this.customerDetails.companyName = arrValues[1];
     this.customerDetails.mobile = arrValues[2];
     this.customerDetails.email = arrValues[3];
     this.customerDetails.address = arrValues[4];
+    this.saveBillDetails();
+  }
 
+  saveBillDetails(){
+    this.localStore.setLocalUserDetail(this.customerDetails)
+    this.getBillDetails_local()
+  }
+  getBillDetails_local(){
+    let localData = this.localStore.getLocalUserDetail()
+    this.customerDetails = JSON.parse(`${localData}`)
   }
  
   
   ngOnInit(){
+    this.getBillDetails_local()
   }
 }
