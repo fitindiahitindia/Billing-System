@@ -18,6 +18,23 @@
             .rows .col_60 {
                 width: 55%;
             }
+            @media (max-width:1200px){
+                .rows {
+                width: 90%;
+                display: block;
+                column-gap: 30px;
+                margin-left: 5%;
+                margin-top: 20px;
+            }
+                .rows .col_40 {
+                width: 100%;
+            }
+
+            .rows .col_60 {
+                width: 100%;
+                margin-top: 15px;
+            }
+            }
         </style>
         <!-- Main Content Layout -->
         <div class="main-content">
@@ -85,11 +102,11 @@
 
                 <div class="col_60">
                     <div class="invoice-summary">
-                        <div class="business_name">{{customerDetails.billName}}</div>
-                        <div class="shop_name"> {{customerDetails.companyName}}</div>
-                        <div class="address"><span>Address:</span> {{customerDetails.address}}</div>
-                        <div class="phone"><span>Phone No.:</span> {{customerDetails.mobile}}</div>
-                        <div class="email"><span>Email Id:</span> {{customerDetails.email}}</div>
+                        <div class="business_name">{{customerDetails?.billName}}</div>
+                        <div class="shop_name"> {{customerDetails?.companyName}}</div>
+                        <div class="address"><span>Address:</span> {{customerDetails?.address}}</div>
+                        <div class="phone"><span>Mobile No.:</span> {{customerDetails?.mobile}}</div>
+                        <div class="email"><span>Email Id:</span> {{customerDetails?.email}}</div>
 
                     </div>
                 </div>

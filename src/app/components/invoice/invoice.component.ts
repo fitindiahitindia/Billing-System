@@ -11,7 +11,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatListModule} from '@angular/material/list';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core'; // Import this
+import { MatNativeDateModule } from '@angular/material/core';
+import { QRCodeModule } from 'angularx-qrcode';
 import {
   FormControl,
   FormGroup,
@@ -20,7 +21,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LocalStoreService } from '../../services/local-store.service';
 interface CUSTOMERDETAILS {
   name: string;
@@ -30,6 +31,14 @@ interface CUSTOMERDETAILS {
   date: string;
   isDiscount:boolean;
   discount:number;
+  qrCode:string;
+}
+interface OWNERDETAILS{
+  billName: string,
+  companyName: string,
+  mobile: string,
+  email: string,
+  address: string
 }
 interface ADDITEMSDETAILS {
   itemIdName: string;
@@ -43,6 +52,7 @@ interface ADDITEMSDETAILS {
   selector: 'app-invoice',
   standalone: true,
   imports: [
+    QRCodeModule,
     RouterModule,
     MatNativeDateModule,
     MatDatepickerModule,
@@ -67,7 +77,7 @@ interface ADDITEMSDETAILS {
 })
 export class InvoiceComponent {
   
-
+  public qrdata: string="";
   warranty: boolean = false;
   isDiscount:boolean=false;
   invoiceDetails: any[] = [];
@@ -81,6 +91,7 @@ export class InvoiceComponent {
     warrantyDate: "",
   };
   customerDetails:any={
+    qrCode:"",
     name: "",
     lname: "",
     mobile: "",
@@ -91,7 +102,7 @@ export class InvoiceComponent {
     total:"",
 
   }
-  ownerDetails:any={
+  public ownerDetails:OWNERDETAILS={
     billName: "Mobile Bill Shop",
     companyName: "Your Business Name",
     mobile: "1234567890",
@@ -99,28 +110,24 @@ export class InvoiceComponent {
     address: "Your Full Address",
 
   }
-  constructor(private localStore:LocalStoreService){}
+  constructor(private localStore:LocalStoreService,private router:Router){}
 
   async getCustomerDetails(formValue: CUSTOMERDETAILS[]) {
-    let arrValues = Object.values(formValue)
-    this.customerDetails.name = arrValues[0];
-    this.customerDetails.lname = arrValues[1];
-    this.customerDetails.mobile = arrValues[2];
-    this.customerDetails.email = arrValues[3];
-    this.customerDetails.date = arrValues[4];
-
+    this.customerDetails = formValue;
     this.customerDetails.invoiceNo =await this.generateInvoice();
-    this.customerDetails.discount = arrValues[12];
     this.customerDetails.total = await this.getTotal();
-    console.log(this.customerDetails)
-    console.log(Object.keys(arrValues))
-    console.log(Object.values(arrValues))
+    this.customerDetails.qrCode = await this.qrCodeGenerator();
+    this.qrdata=this.getUrl() +'/'+this.customerDetails.invoiceNo.toString();
+    
+    this.customerDetails = {
+      ...this.customerDetails,
+      products:[...this.invoiceAddItem]
+    }
   }
  
   async getAddItemsDetails() {
     await this.invoiceAddItem.push({...this.addItems});
     this.emptyAddItems("warrantyDate");
-    console.log(this.invoiceAddItem);
   }
   generateInvoice(){
     const invoice = Math.floor(Math.random() *99999)
@@ -130,12 +137,17 @@ export class InvoiceComponent {
    return this.customerDetails.discount
 
   }
+  qrCodeGenerator(){
+    let alpha=['A',"J","m","S","v","T","k","X","o","Y","l","B"]
+    const qrCode = Math.floor(Math.random() *99999) +''+ Date.now()
+    return qrCode
+  }
   getTotal(){
     let total=0;
     for(let i=0;i<this.invoiceAddItem.length;i++){
      total += this.invoiceAddItem[i].itemPrice * this.invoiceAddItem[i].itemQuantity
     }
-    if(this.customerDetails.discount <=0){
+    if(this.customerDetails.isDiscount==false){
       return total
     }else{
       
@@ -165,9 +177,15 @@ export class InvoiceComponent {
 
   getBillDetails_local(){
     let localData = this.localStore.getLocalUserDetail()
-    this.ownerDetails = JSON.parse(`${localData}`)
+    if(localData==null){
+      this.localStore.setLocalUserDetail(this.ownerDetails)
+    }else{
+      this.ownerDetails = JSON.parse(`${localData}`)
+    }
   }
-
+  getUrl(){
+    return `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`+this.router.url
+  }
   ngOnInit(){
     this. getBillDetails_local();
     this.generateInvoice();

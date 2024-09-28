@@ -64,7 +64,11 @@ export class ManageInvoiceComponent {
   }
   getBillDetails_local(){
     let localData = this.localStore.getLocalUserDetail()
-    this.customerDetails = JSON.parse(`${localData}`)
+    if(localData==null){
+      this.localStore.setLocalUserDetail(this.customerDetails)
+    }else{
+      this.customerDetails = JSON.parse(`${localData}`)
+    }
   }
  
   

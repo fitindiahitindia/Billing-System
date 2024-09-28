@@ -24,6 +24,23 @@
             .rows .col_60 {
                 width: 55%;
             }
+            @media (max-width:1200px){
+                .rows {
+                width: 90%;
+                display: block;
+                column-gap: 30px;
+                margin-left: 5%;
+                margin-top: 20px;
+            }
+                .rows .col_40 {
+                width: 100%;
+            }
+
+            .rows .col_60 {
+                width: 100%;
+                margin-top: 15px;
+            }
+            }
         </style>
         <!-- Main Content Layout -->
         <div class="main-content">
@@ -85,6 +102,7 @@
                             </mat-card-header>
                             <mat-divider></mat-divider>
                             <mat-card-content style="padding-top: 20px;">
+                                <form action="">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Product ID</mat-label>
                                     <input matInput placeholder="Product ID" name="itemIdName" ngModel
@@ -93,7 +111,7 @@
 
                                 <mat-form-field appearance="outline">
                                     <mat-label>Name</mat-label>
-                                    <input matInput placeholder="Item Name" name="itemName" ngModel
+                                    <input matInput placeholder="Product Name" name="itemName" ngModel
                                         [(ngModel)]="addItems.itemName">
                                 </mat-form-field>
 
@@ -119,7 +137,7 @@
                                     <mat-error *ngIf="!warrantyDate.valid && warrantyDate.touched">Warranty Date is
                                         <strong>required</strong></mat-error>
                                 </mat-form-field>
-
+                            </form>
                                 <mat-divider></mat-divider>
                                 <!-- ADD BUTTON -->
                                 <mat-card-content style="margin-top: 15px;">
@@ -172,10 +190,25 @@
 
                 <div class="col_60">
                     <div class="invoice-summary">
-                        <div class="business_name"> {{ownerDetails.billName}}</div>
-                        <div class="shop_name"> {{ownerDetails.companyName}}</div>
+                        <div class="business_name"> 
+                            {{ownerDetails.billName}}
+                        </div>
+                        <div class="shop_name">
+                            <div class="qrcodeImage" *ngIf="qrdata != ''">
+                                <qrcode
+                                [qrdata]="qrdata" 
+                                [allowEmptyString]="true"
+                                [elementType]="'img'"
+                                [errorCorrectionLevel]="'M'"
+                                [margin]="1"
+                                [scale]="1"
+                                [width]="70"
+                                ></qrcode>
+                            </div>
+                            <div>{{ownerDetails.companyName}}</div>
+                        </div>
                         <div class="address"><span>Address:</span>{{ownerDetails.address}}</div>
-                        <div class="phone"><span>Phone No.:</span> {{ownerDetails.mobile}}</div>
+                        <div class="phone"><span>Mobile No.:</span> {{ownerDetails.mobile}}</div>
                         <div class="email"><span>Email Id:</span> {{ownerDetails.email}}</div>
                         <hr />
                         <div class="customer_detail">
@@ -189,14 +222,13 @@
                                 <div class="cu_invoice_no"><span>Invoice No:</span> {{customerDetails.invoiceNo}}</div>
                                 <div class="cu_invoice_date"><span>Invoice Date:</span> {{customerDetails.date}}</div>
                                 <div class="cu_order_no"><span>Order No:</span> 3</div>
-                                <!-- <div class="cu_warranty"><span>Warranty:</span> {{customerDetails.warranty}}| {{customerDetails.warrantyDate}}</div> -->
                             </div>
                         </div>
                         <hr />
                         <table>
                             <thead>
                                 <tr>
-                                    <th style="background-color: #eee;">S.No</th>
+                                    <th style="background-color: #eee;">Pro.Id</th>
                                     <th style="background-color: #eee;">Product Name</th>
                                     <th style="background-color: #eee;">Qty.</th>
                                     <th style="background-color: #eee;">Wty.</th>
@@ -232,6 +264,12 @@
                         </table>
 
                     </div>
+
+                    <p style="margin-top: 15px;">
+                        <span style="font-weight: bold;">Note:</span>
+                        This Bill is auto generated no need for signature.
+                    </p>
+
                 </div>
             </div>
 

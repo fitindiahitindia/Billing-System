@@ -105,7 +105,7 @@ section {
 
 
 .invoice-summary{line-height: 32px;font-family: 'Times New Roman', Times, serif;border:2px dashed rgb(197, 197, 197);padding: 10px;}
-.shop_name{margin: 20px 0;font-size: 18px;font-weight: bold;font-family: sans-serif;}
+.shop_name{margin: 20px 0;font-size: 18px;font-weight: bold;font-family: sans-serif;display:block; justify-content:space-between;}
 .business_name{font-size: 25px;
     text-align: center;
     background-color: #eee;
